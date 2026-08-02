@@ -1,17 +1,32 @@
-import { arrayBufferToBase64 } from '../utils/arrayBufferToBase64.js'
+import { arrayBufferToBase64 } from '../utils/arrayBufferToBase64.js';
 
-
-async function encryptEnvFile(envContent) {
+async function encryptEnvFile(envContent, password) {
     const encoder = new TextEncoder();
     const data = encoder.encode(envContent);
 
-    const key = await window.crypto.subtle.generateKey(
-        { name: "AES-GCM", length: 256 },
-        true,
-        ["encrypt", "decrypt"]
+    const salt = window.crypto.getRandomValues(new Uint8Array(16));
+    const iv = window.crypto.getRandomValues(new Uint8Array(12));
+
+    const passwordKey = await window.crypto.subtle.importKey(
+        "raw",
+        encoder.encode(password),
+        { name: "PBKDF2" },
+        false,
+        ["deriveKey"]
     );
 
-    const iv = window.crypto.getRandomValues(new Uint8Array(12));
+    const key = await window.crypto.subtle.deriveKey(
+        {
+            name: "PBKDF2",
+            salt: salt,
+            iterations: 100000,
+            hash: "SHA-256"
+        },
+        passwordKey,
+        { name: "AES-GCM", length: 256 },
+        false,
+        ["encrypt"]
+    );
 
     const encryptedBuffer = await window.crypto.subtle.encrypt(
         { name: "AES-GCM", iv: iv },
@@ -19,19 +34,16 @@ async function encryptEnvFile(envContent) {
         data
     );
 
-    const combinedBuffer = new Uint8Array(iv.length + encryptedBuffer.byteLength);
-    combinedBuffer.set(iv, 0);
-    combinedBuffer.set(new Uint8Array(encryptedBuffer), iv.length);
-
-    const exportedKey = await window.crypto.subtle.exportKey("raw", key);
-    const keyBase64 = arrayBufferToBase64(exportedKey);
+    const combinedBuffer = new Uint8Array(salt.length + iv.length + encryptedBuffer.byteLength);
+    combinedBuffer.set(salt, 0);
+    combinedBuffer.set(iv, salt.length);
+    combinedBuffer.set(new Uint8Array(encryptedBuffer), salt.length + iv.length);
 
     const encryptedDataBase64 = arrayBufferToBase64(combinedBuffer.buffer);
 
     return {
-        encryptedData: encryptedDataBase64,
-        secretKey: keyBase64
+        encryptedData: encryptedDataBase64
     };
 }
 
-export default encryptEnvFile
+export default encryptEnvFile;
