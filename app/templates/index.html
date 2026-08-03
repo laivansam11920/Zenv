@@ -1,11 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mã hóa / Giải mã File</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 700px;
+            margin: 30px auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .section {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            margin-bottom: 15px;
+        }
+        pre {
+            background-color: #272822;
+            color: #f8f8f2;
+            padding: 12px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
 </head>
 <body>
-$END$
-</body>
-<script type="module" src="../static/main.js"></script>
-</html>
+
+    <h2>Đọc File & Chạy Mã Hóa / Giải Mã</h2>
+
+    <div class="section">
+        <label><strong>1. Chọn file (.env / .txt):</strong></label><br><br>
+        <input type="file" id="fileInput" accept=".env,.txt">
+    </div>
+
+    <div class="section">
+        <h3>=== 1. FILE ORIGIN (.env) ===</h3>
+        <pre id="rawEnv">Chưa có file nào được chọn...</pre>
+    </div>
+
+    <div class="section">
+        <h3>=== 2. KẾT QUẢ MÃ HÓA ===</h3>
+        <p><strong>File mã hóa (Up lên Server):</strong></p>
+        <pre id="encryptedData">...</pre>
+        <p><strong>Chìa khóa Secret (Trả cho User):</strong></p>
+        <pre id="secretKey">...</pre>
+    </div>
+
+    <div class="section">
+        <h3>=== 3. KẾT QUẢ GIẢI MÃ ===</h3>
+        <pre id="decryptedText">...</pre>
+    </div>
+<script  type="module" src="../static/main.js"></script>
