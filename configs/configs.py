@@ -1,11 +1,10 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field
-import secrets
 
 class Settings(BaseSettings):
     # 1. APP CONFIG
     DEBUG: bool = Field(default=False, alias="DEBUG")
-    SECRET_KEY: str = Field(default_factory=lambda: secrets.token_hex(32), alias="SECRET_KEY")
+    SECRET_KEY: str = Field(..., alias="SECRET_KEY")
 
     # 2. FLASK CONFIG
     SESSION_COOKIE_SAMESITE: str = "Lax"
@@ -20,6 +19,6 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(populate_by_name=True)
 
     def model_post_init(self, __context):
-        self.SESSION_COOKIE_SECURE = self.DEBUG
+        self.SESSION_COOKIE_SECURE = not self.DEBUG
 
 Configs = Settings()
