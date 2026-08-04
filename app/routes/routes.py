@@ -7,7 +7,7 @@ login_bp: Blueprint = Blueprint("login_bp", __name__)
 main: Blueprint = Blueprint("main_bp", __name__)
 
 
-@main.route("/", methods=["GET", "POST", "DELETE", "PUT"])
+@main.route("/")
 def home():
     return render_template("index.html")
 
