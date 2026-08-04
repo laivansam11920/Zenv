@@ -6,6 +6,14 @@ class User(UserMixin):
         self.password: str = password
         self.id: str = user_id
 
+    @property
+    def get_id(self) -> str:
+        return self.id
+
+    @property
+    def get_username(self) -> str:
+        return self.username
+
     @staticmethod
     def get_user(user_id: str) -> User | None:
         from app.database import db
