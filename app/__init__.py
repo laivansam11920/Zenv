@@ -10,4 +10,8 @@ def create_app() -> Flask:
     register_routes(app)
     login_manager.init_app(app)
     login_manager.login_view = "login_route"
+    login_manager.session_protection = "strong"
+
+    import middlewares.auth_loader
+
     return app
