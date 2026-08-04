@@ -1,12 +1,12 @@
 from flask import Flask, render_template
 from configs import Configs
-
+from app.routes.blueprints import register_routes
 
 def create_app():
     app = Flask(__name__)
     app.secret_key = Configs.SECRET_KEY
     app.config.from_object(Configs)
-
+    register_routes(app)
     @app.route("/")
     def index():
         return render_template("index.html")
