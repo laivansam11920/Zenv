@@ -1,6 +1,7 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field
 
+
 class Settings(BaseSettings):
     # 1. APP CONFIG
     DEBUG: bool = Field(default=False, alias="DEBUG")
@@ -20,5 +21,6 @@ class Settings(BaseSettings):
 
     def model_post_init(self, __context):
         self.SESSION_COOKIE_SECURE = not self.DEBUG
+
 
 Configs = Settings()

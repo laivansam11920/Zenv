@@ -4,5 +4,4 @@ load_dotenv(find_dotenv(), override=True)
 
 from .configs import Configs
 
-__all__ = ['Configs']
-
+__all__ = ["Configs"]
