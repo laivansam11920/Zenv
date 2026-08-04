@@ -1,10 +1,11 @@
 from flask_login import UserMixin
 
 class User(UserMixin):
-    def __init__(self, username, password, user_id):
+    def __init__(self, username: str, /, password: str, user_id: str, role: str="user"):
         self.username: str = username
         self.password: str = password
         self.id: str = user_id
+        self.role: str = role
 
     @property
     def get_id(self) -> str:
@@ -18,10 +19,14 @@ class User(UserMixin):
     def get(user_id: str) -> User | None:
         from app.database import db
 
-        user = db.user.find_one({ "user_id": user_id }, { "_id": 0, "username": 1, "password": 1 })
+        user: dict = db.user.find_one({ "user_id": user_id }, { "_id": 0, "username": 1, "password": 1, "role": 1 })
 
         if not user:
             return None
 
-        return User(user_id=user.get("user_id"), username=user.get("username"), password=user.get("password"))
-
+        return User(
+            str(user.get("username", "")),
+            password=str(user.get("password", "")),
+            user_id=str(user.get("user_id", "")),
+            role=str(user.get("role", "user")),
+        )
