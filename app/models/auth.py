@@ -15,7 +15,7 @@ class User(UserMixin):
         return self.username
 
     @staticmethod
-    def get_user(user_id: str) -> User | None:
+    def get(user_id: str) -> User | None:
         from app.database import db
 
         user = db.user.find_one({ "user_id": user_id }, { "_id": 0, "username": 1, "password": 1 })
