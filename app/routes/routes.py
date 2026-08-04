@@ -2,7 +2,7 @@ from flask import Blueprint, render_template
 from app.controllers.auth.login import LoginController
 
 get_env_bp: Blueprint = Blueprint("get_env_bp", __name__)
-save_env_bp = Blueprint("save_env_bp", __name__)
+save_env_bp: Blueprint = Blueprint("save_env_bp", __name__)
 login_bp: Blueprint = Blueprint("login_bp", __name__)
 main: Blueprint = Blueprint("main_bp", __name__)
 
