@@ -1,14 +1,13 @@
-from flask import Flask, render_template
+from flask import Flask
 from configs import Configs
 from app.routes import register_routes
+from flask_login import LoginManager
 
 def create_app() -> Flask:
     app = Flask(__name__)
-    app.secret_key = Configs.SECRET_KEY
     app.config.from_object(Configs)
     register_routes(app)
-    @app.route("/")
-    def index():
-        return render_template("index.html")
-
+    login_manager = LoginManager()
+    login_manager.init_app(app)
+    login_manager.login_view = 'login'
     return app

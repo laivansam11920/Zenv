@@ -6,3 +6,5 @@ def register_routes(app: Flask):
     app.register_blueprint(save_env_bp, url_prefix='/env')
 
     app.register_blueprint(login_bp, url_prefix='/auth')
+
+    app.register_blueprint(main)
