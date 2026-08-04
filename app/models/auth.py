@@ -19,7 +19,10 @@ class User(UserMixin):
     def get(user_id: str) -> User | None:
         from app.database import db
 
-        user: dict = db.user.find_one({ "user_id": user_id }, { "_id": 0, "username": 1, "password": 1, "role": 1 })
+        user: dict = db.user.find_one(
+            { "user_id": user_id },
+            { "_id": 0, "username": 1, "password": 1, "role": 1 }
+        )
 
         if not user:
             return None
