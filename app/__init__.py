@@ -3,11 +3,12 @@ from configs import Configs
 from app.routes import register_routes
 from flask_login import LoginManager
 
+
 def create_app() -> Flask:
     app = Flask(__name__)
     app.config.from_object(Configs)
     register_routes(app)
     login_manager = LoginManager()
     login_manager.init_app(app)
-    login_manager.login_view = 'login'
+    login_manager.login_view = "login_route"
     return app

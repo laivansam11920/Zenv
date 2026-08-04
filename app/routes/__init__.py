@@ -1,3 +1,3 @@
 from .blueprints import *
 
-__all__ = ['register_routes']
+__all__ = ["register_routes"]
