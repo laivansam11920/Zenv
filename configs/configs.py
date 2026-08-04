@@ -4,6 +4,8 @@ from pydantic import Field
 
 class Settings(BaseSettings):
     # 1. APP CONFIG
+    PORT: int = Field(default=2011, alias="PORT")
+    HOST: str = Field(default="0.0.0.0", alias="HOST")
     DEBUG: bool = Field(default=False, alias="DEBUG")
     SECRET_KEY: str = Field(..., alias="SECRET_KEY")
 
