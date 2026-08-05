@@ -9,10 +9,6 @@ class User(UserMixin):
         self.last_update: str = last_update
 
     @property
-    def get_id(self) -> str:
-        return self.id
-
-    @property
     def get_username(self) -> str:
         return self.username
 
