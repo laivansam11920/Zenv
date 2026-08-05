@@ -1,11 +1,12 @@
 from flask_login import UserMixin
 
 class User(UserMixin):
-    def __init__(self, username: str, /, password: str, user_id: str, role: str="user"):
+    def __init__(self, username: str, /, password: str, user_id: str, role: str="user", last_update: str=""):
         self.username: str = username
         self.password: str = password
         self.id: str = user_id
         self.role: str = role
+        self.last_update: str = last_update
 
     @property
     def get_id(self) -> str:
@@ -32,4 +33,5 @@ class User(UserMixin):
             password=str(user.get("password", "")),
             user_id=str(user.get("user_id", "")),
             role=str(user.get("role", "user")),
+            last_update=str(user.get("last_update", "")),
         )
