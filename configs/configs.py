@@ -13,6 +13,8 @@ class Settings(BaseSettings):
     SESSION_COOKIE_SAMESITE: str = "Lax"
     SESSION_COOKIE_HTTPONLY: bool = True
     SESSION_COOKIE_SECURE: bool = False
+    LOGIN_VIEW: str = Field(default="login_route", alias="LOGIN_VIEW")
+    SESSION_PROTECTION: str = Field(default="strong", alias="SESSION_PROTECTION")
 
     # 3. MONGODB CONFIG
     MONGO_URI: str = Field(..., alias="MONGO_URI")

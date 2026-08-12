@@ -11,8 +11,8 @@ def create_app() -> Flask:
 
     login_manager.init_app(app)
 
-    login_manager.login_view = "login_route"
-    login_manager.session_protection = "strong"
+    login_manager.login_view = Configs.LOGIN_VIEW
+    login_manager.session_protection = Configs.SESSION_PROTECTION
 
     import middlewares.auth_loader  # type: ignore
 
