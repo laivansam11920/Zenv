@@ -30,6 +30,7 @@ class LoginController:
 
             login_user_lib(load_user, remember=remember)
 
+            return {"success": True, "message": "Login successful"}
 
 
 
