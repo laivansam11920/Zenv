@@ -5,10 +5,10 @@ from pymongo.errors import ConnectionFailure, ServerSelectionTimeoutError
 
 try:
     client: MongoClient[Mapping[str, Any]] = MongoClient(
-        Configs.URI, timeoutMS=5000, serverSelectionTimeoutMS=5000, maxIdleTimeMS=45000
+        Configs.MONGO_URI, timeoutMS=5000, serverSelectionTimeoutMS=5000, maxIdleTimeMS=45000
     )
     client.admin.command("ping")
-    db = client[Configs.DB_NAME]
+    db = client[Configs.MONGO_DB]
     print("Successfully connected to MongoDB", flush=True)
 except ServerSelectionTimeoutError:
     print("Error: Connection timed out (check your IP or permissions)", flush=True)
