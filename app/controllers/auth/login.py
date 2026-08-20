@@ -30,7 +30,11 @@ class LoginController:
 
             login_user_lib(load_user, remember=remember)
 
-            return {"success": True, "message": "Login successful"}
+            return {"success": True, "message": "Login successful"}, 200
 
+        if request.method == "GET":
+            return "Login", 200
+
+        return None
 
 
